@@ -1,0 +1,19 @@
+:author:       Joshua
+:revision:     v.0.1.0 pre dev
+:docVersion:   v.0.1.0
+:date:         16/03/2024
+
+= Tertiary Education Planner Documentation
+========================================
+{docversion} {date}
+
+IMPORTANT: This documentation is based on version *"{revision}"*.
+This app is written in *JavaScript* using the *Deno* runtime.
+All other runtime environments *WILL BE INCOMPATIBLE*.
+
+.*Catalogue*
+. link:./server.asciidoc[Server]
+. link:./modules.asciidoc[Modules]
+. link:./api.asciidoc[API]
+. link:./webpages.asciidoc[Webpages]
+. link:./configurations.asciidoc[Configurations]
