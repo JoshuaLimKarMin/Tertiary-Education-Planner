@@ -10,6 +10,54 @@ export default (req) => {
    urlLocation.shift()
 
    switch(urlLocation[0]){
+      case "lib": {
+         urlLocation.shift()
+         const libraryPath = './content/libraries/' + urlLocation[0]
+
+         try {
+            Deno.readDirSync(libraryPath)
+            logger.debug('Library accessed: ' + libraryPath)
+
+         } catch (err) {
+            if(!(err instanceof Deno.errors.NotFound)){
+               throw err
+            }
+            console.log('Library not found.')
+            return new Response('LIBRARY NOT FOUND', {
+               status: 404,
+            })
+         }
+
+         urlLocation.shift()
+         const filePath = urlLocation.join('/')
+
+         let contentType
+
+         if(filePath.endsWith('.css'))contentType = "text/css"
+         else if(filePath.endsWith('.js'))contentType = 'text/javascript'
+         else if(filePath.endsWith('.svg'))contentType = 'image/svg+xml'
+         else if(filePath.endsWith('.ttf'))contentType = 'font/ttf'
+         else if(filePath.endsWith('.woff'))contentType = 'font/woff'
+         else if(filePath.endsWith('.woff2'))contentType = 'font/woff2'
+
+         try {
+            const fileData = Deno.readFileSync(libraryPath + "/" + filePath)
+
+            return new Response(fileData, {
+               headers: {
+                  'Content-Type': contentType
+               }
+            })
+
+         } catch (err) {
+            if(!(err instanceof Deno.errors.NotFound)){
+               throw err
+            }
+            return new Response('NOT FOUND', {
+               status: 404
+            })
+         }
+      }
       case 'test': {
          let contentType = 'text/html'
         // if(CURRENT_ENVIRONMENT !== 'DEVELOPMENT')return new Response("System configuration prohibits access to this resource.", {

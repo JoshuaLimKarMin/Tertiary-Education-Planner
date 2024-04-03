@@ -1,3 +1,4 @@
 {
-   "saveLogs": true
+   "saveLogs": true,
+   "offlineDatabase": true
 }
