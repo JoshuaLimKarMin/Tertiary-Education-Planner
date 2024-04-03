@@ -15,9 +15,9 @@ loader()
 
 const logger = new Logger("main")
 
-logger.warn('Test')
-logger.debug('Test')
-logger.info('Test')
+// logger.warn('Test')
+// logger.debug('Test')
+// logger.info('Test')
 
 // const startupData = startup()
 

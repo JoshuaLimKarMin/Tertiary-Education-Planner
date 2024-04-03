@@ -12,9 +12,9 @@ export default (req) => {
    switch(urlLocation[0]){
       case 'test': {
          let contentType = 'text/html'
-         if(CURRENT_ENVIRONMENT !== 'DEVELOPMENT')return new Response("System configuration prohibits access to this resource.", {
-            status: 403
-         })
+        // if(CURRENT_ENVIRONMENT !== 'DEVELOPMENT')return new Response("System configuration prohibits access to this resource.", {
+        //    status: 403
+        // })
 
          try {
             urlLocation.shift()
@@ -31,26 +31,26 @@ export default (req) => {
 
             }else if(filePath.endsWith('.png')){
                contentType = "image/png"
-               contentType = "resources/image/png"
+               filePath = `resources/images/${filePath}`
             }
             else if(filePath.endsWith('.svg')){
                contentType = "image/svg+xml"
-               contentType = "resources/image/svg+xml"
+               filePath = `resources/images/${filePath}`
             }
             else if(filePath.endsWith('.jpg') || filePath.endsWith('.jpeg')){
                contentType = "image/jpeg"
-               contentType = "resources/image/jpeg"
+               filePath = `resources/images/${filePath}`
             }
             else if(filePath.endsWith('.mp4')){
                contentType = "video/mp4"
-               contentType = "resources/video/mp4"
+               filePath = `resources/videos/${filePath}`
             }
             else if(filePath.endsWith('.mp3')){
                contentType = "audio/mpeg"
-               contentType = "resources/audio/mpeg"
+               filePath = `resources/audios/${filePath}`
             }
 
-            const contentData = Deno.readTextFileSync(`./content/${filePath}`)
+            const contentData = Deno.readFileSync(`./content/${filePath}`)
             logger.warn(`Test file accessed: ${filePath}`)
 
             return new Response(contentData, {
